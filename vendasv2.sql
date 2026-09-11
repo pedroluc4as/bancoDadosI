@@ -13,6 +13,15 @@ CREATE TABLE Cliente
     telefone2 VarCHAR(16) NULL
 );
 
+CREATE TABLE Endereco_Entrega
+(
+   ID int PRIMARY KEY,
+   cleinte_ID int NOT NULL REFERENCES Cliente(ID),
+   rua varchar(60) NOT NULL,
+   numero varchar(10) NOT NULL,
+   bairro varchar(30) NOT NULL
+);
+
 CREATE TABLE Venda
 (
     codigo int NOT NULL PRIMARY KEY,
@@ -26,7 +35,7 @@ INSERT INTO Cliente (id, nome, telefone1)
    VALUES (7, 'Isadora Martins', '67 99991-1111');
 
 INSERT INTO Cliente (id, nome, telefone1, cpf)
-   VALUES (10, 'Pedro Henrique', '67 9988-0000', '000.000.000-00');
+   VALUES (10, 'Pedro Sperandio', '67 9988-0000', '000.000.000-00');
 
 INSERT INTO Cliente (id, nome, telefone1, cpf)
    VALUES (15, 'Fernando Lemos', '67 1200-3579', NULL);
@@ -158,5 +167,23 @@ CREATE TABLE Produto
 
 CREATE TABLE Produto_Venda
 (
-    ID
+    ID SERIAL NOTE NULL PRIMARY KEY,
+    produtos_ID INT NOT NULL REFERENCES Produto(ID),
+    venda_ID INT NOT NULL REFERENCES Venda(Codigo),
+    valor_unitario NUMERIC(9,2) NOT NULL
 );
+
+INSERT INTO Produto (ID, Nome, preco, estoque)
+    VALUES
+    (1000, 'PLACA DE VIDEO 5090', 2300, 50),
+    (300, 'PLACA DE MAE ASUS', 1855, 15),
+    (12, 'PROCESSADOR XEON', 7000, 10);
+
+INSERT INTO Produto_Venda (produto_id, venda_ID, quantidade, valor_unitario)
+    VALUES
+    (1000, 1, 1, 40000),
+    (1000, 1, 1, 40000),
+    (1000, 1, 1, 40000),
+    (1000, 1, 1, 40000),
+    (1000, 1, 1, 40000),
+    (1000, 1, 1, 40000);
