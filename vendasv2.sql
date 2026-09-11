@@ -15,12 +15,18 @@ CREATE TABLE Cliente
 
 CREATE TABLE Endereco_Entrega
 (
-   ID int PRIMARY KEY,
+   ID serial PRIMARY KEY,
    cleinte_ID int NOT NULL REFERENCES Cliente(ID),
    rua varchar(60) NOT NULL,
    numero varchar(10) NOT NULL,
    bairro varchar(30) NOT NULL
 );
+
+INSERT INTO Endereco_Entrega(cleinte_ID, rua, numero, bairro)
+   VALUES (7, 'angelo melao', '790', 'jd paineiras'),
+          (7, 'avnd br', '127', 'centro'),
+          (15, 'rua g', '2223', 'vila nova'),
+          (7, 'sood', '2333', 12313)
 
 CREATE TABLE Venda
 (
@@ -28,7 +34,8 @@ CREATE TABLE Venda
     data_hora timestamp NOT NULL,
     valor_total numeric(9,2) NOT NULL,
     forma_pagto varchar(20) NOT NULL,
-    cliente_id int NOT NULL REFERENCES Cliente(ID)
+    cliente_id int NOT NULL REFERENCES Cliente(ID),
+    endereco_id int NULL REFERENCES Endereco_Entrega(ID)
 );
 
 INSERT INTO Cliente (id, nome, telefone1)
@@ -110,8 +117,8 @@ CREATE TABLE Venda
 );
 */
 
-INSERT INTO Venda (codigo, data_hora, valor_total, forma_pagto, cliente_id)
-   VALUES (1, '2020/10/15 12:00', 10000, 'PIX', 7);
+INSERT INTO Venda (codigo, data_hora, valor_total, forma_pagto, cliente_id, entrega_id)
+   VALUES (1, '2020/10/15 12:00', 10000, 'PIX', 7, 1);
 
 INSERT INTO Venda (codigo, data_hora, valor_total, forma_pagto, cliente_id)
    VALUES (2, '2026/1/20 10:30', 350, 'pix', 10);
