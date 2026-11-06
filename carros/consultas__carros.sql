@@ -1,9 +1,24 @@
 --1. Qual é o menor preço entre os veículos da Ferrari?
-SELECT 
+
+SELECT MIN(Carro.preco) AS menor_preco_ferrari
+FROM Carro
+JOIN Modelo ON Carro.modelo_id = Modelo.id
+JOIN Fabricante ON Modelo.fabricante_id = Fabricante.id
+WHERE Fabricante.nome = 'Ferrari';
 
 --2. Qual é o maior preço entre os veículos da Tesla?
 
+SELECT MAX(Carro.preco) AS maior_preco_tesla
+FROM Carro
+JOIN Modelo ON Carro.modelo_id = Modelo.id
+JOIN Fabricante ON Modelo.fabricante_id = Fabricante.id
+WHERE Fabricante.nome = 'Tesla';
+
 --3. Qual é a quilometragem média dos veículos elétricos cadastrados?
+
+SELECT AVG(Carro.quilometragem) km_medio_eletrico
+FROM Carro JOIN Propulsao ON Carro.propulsao_id = Propulsao.id
+WHERE Propulsao.nome = 'Elétrico';
 
 --4. Quantos veículos possuem pintura metalizada?
 
